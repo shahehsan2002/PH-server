@@ -1,10 +1,14 @@
-import httpStatus from "http-status";
+import httpStatus from 'http-status';
 
-import {RequestHandler,  } from "express";
-import sendResponse from "../../utils/sendResponse";
-import { UserServices } from "./user.service";
+import { NextFunction, Request, Response } from 'express';
+import sendResponse from '../../utils/sendResponse';
+import { UserServices } from './user.service';
 
-const createStudent:RequestHandler = async (req, res, next) => {
+const createStudent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   try {
     const { password, student: studentData } = req.body;
 
@@ -12,13 +16,13 @@ const createStudent:RequestHandler = async (req, res, next) => {
 
     const result = await UserServices.createStudentIntoDB(
       password,
-      studentData
+      studentData,
     );
 
     sendResponse(res, {
       statusCode: httpStatus.OK,
       success: true,
-      message: "Student is created successfully",
+      message: 'Student is created successfully',
       data: result,
     });
   } catch (err) {

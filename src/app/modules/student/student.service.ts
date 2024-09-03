@@ -1,3 +1,4 @@
+
 import { Student } from './student.model';
 
 const getAllStudentsFromDB = async () => {
