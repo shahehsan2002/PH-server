@@ -1,29 +1,23 @@
 import httpStatus from 'http-status';
 
-import { RequestHandler  } from 'express';
+import { RequestHandler } from 'express';
 import sendResponse from '../../utils/sendResponse';
 import catchAsync from '../../utils/catchAsync';
+import { AcademicSemesterServices } from './academicSemester.service';
 
-const createAcademicSemester : RequestHandler =catchAsync (async (req, res, ) => {
-  
-    // const { password, student: studentData } = req.body;
+const createAcademicSemester: RequestHandler = catchAsync(async (req, res) => {
+  const result = await AcademicSemesterServices.createAcademicSemesterIntoDB(
+    req.body,
+  );
 
-    
-
-    // const result = await UserServices.createStudentIntoDB(
-    //   password,
-    //   studentData
-    // );
-
-    sendResponse(res, {
-      statusCode: httpStatus.OK,
-      success: true,
-      message: 'Student is created successfully',
-      data: result,
-    });
-  
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Academic Semester is created successfully',
+    data: result,
+  });
 });
 
 export const AcademicSemesterControllers = {
-    createAcademicSemester,
+  createAcademicSemester,
 };
