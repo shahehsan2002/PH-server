@@ -3,7 +3,7 @@ import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { AcademicSemesterServices } from './academicSemester.service';
 
-const createAcademicSemester = catchAsync(async (req, res) => {
+const createAcademicSemesterIntoDB = catchAsync(async (req, res) => {
   const result = await AcademicSemesterServices.createAcademicSemesterIntoDB(
     req.body,
   );
@@ -16,7 +16,7 @@ const createAcademicSemester = catchAsync(async (req, res) => {
   });
 });
 
-const getAllAcademicSemesters = catchAsync(async (req, res) => {
+const getAllAcademicSemestersFromDB = catchAsync(async (req, res) => {
   const result = await AcademicSemesterServices.getAllAcademicSemestersFromDB();
 
   sendResponse(res, {
@@ -27,7 +27,7 @@ const getAllAcademicSemesters = catchAsync(async (req, res) => {
   });
 });
 
-const getSingleAcademicSemester = catchAsync(async (req, res) => {
+const getSingleAcademicSemesterFromDB = catchAsync(async (req, res) => {
   const { semesterId } = req.params;
   const result =
     await AcademicSemesterServices.getSingleAcademicSemesterFromDB(semesterId);
@@ -35,12 +35,12 @@ const getSingleAcademicSemester = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Academic semester is retrieved succesfully',
+    message: 'Academic semester is retrieved successfully',
     data: result,
   });
 });
 
-const updateAcademicSemester = catchAsync(async (req, res) => {
+const updateAcademicSemesterIntoDB = catchAsync(async (req, res) => {
   const { semesterId } = req.params;
   const result = await AcademicSemesterServices.updateAcademicSemesterIntoDB(
     semesterId,
@@ -50,14 +50,14 @@ const updateAcademicSemester = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Academic semester is retrieved succesfully',
+    message: 'Academic semester is retrieved successfully',
     data: result,
   });
 });
 
 export const AcademicSemesterControllers = {
-  createAcademicSemester,
-  getAllAcademicSemesters,
-  getSingleAcademicSemester,
-  updateAcademicSemester,
+  createAcademicSemesterIntoDB,
+  getAllAcademicSemestersFromDB,
+  getSingleAcademicSemesterFromDB,
+  updateAcademicSemesterIntoDB,
 };
