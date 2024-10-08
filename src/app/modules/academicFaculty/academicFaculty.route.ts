@@ -13,6 +13,8 @@ router.post(
   AcademicFacultyControllers.createAcademicFaculty
 );
 
+router.get('/', AcademicFacultyControllers.getAllAcademicFaculties);
+
 router.get('/:facultyId', 
     AcademicFacultyControllers.getAllAcademicFaculties);
 
@@ -27,5 +29,6 @@ router.get('/:facultyId',
     router.get(
         '/', AcademicFacultyControllers.
         getSingleAcademicFaculty);
+
 
 export const AcademicFacultyRoutes = router;
