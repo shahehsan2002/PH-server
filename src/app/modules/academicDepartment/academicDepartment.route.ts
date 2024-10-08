@@ -19,7 +19,7 @@ router.get(
 );
 
 router.patch(
-  '/',
+  '/:departmentId',
   validateRequest(
     AcademicDepartmentValidation.updateAcademicDepartmentValidationSchema
   ),
