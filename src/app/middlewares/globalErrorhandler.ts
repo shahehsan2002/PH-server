@@ -4,17 +4,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
 import { ZodError, ZodIssue } from 'zod';
+import { TErrorSources } from '../interface/error';
+import config from '../config';
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
-  // setting default values
+// Default error response values
   const statusCode = err.statusCode || 500;
   const message = err.message || 'Something went wrong!';
 
-  type TErrorSources = {
-    path: string;
-    message: string;
-  }[];
-
+ 
   const errorSources: TErrorSources = [
     {
       path: '',
@@ -22,6 +20,7 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     },
   ];
 
+   // Function to handle ZodError
   const handleZorError = (error: ZodError) => {
     const errorSources: TErrorSources = err.issues.map((issue: ZodIssue) => ({
       return: {
@@ -33,15 +32,18 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
     return {
       statusCode,
-      message: 'Validation Error from ZodError',
+      message: 'Validation Error ',
       errorSources,
     };
   };
 
   if (err instanceof ZodError) {
     const simplifiedError = handleZorError(err);
+    statusCode = simplifiedError?.statusCode;
 
-    message = 'Validation Error from ZodError';
+    message = simplifiedError?.message;
+
+    errorSources = simplifiedError?.errorSources;
   }
 
   // Ultimate error return
@@ -49,6 +51,7 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     success: false,
     message,
     errorSources,
+    stack: config.NODE_ENV === 'development' ? err.stack : null,
   });
 };
 
