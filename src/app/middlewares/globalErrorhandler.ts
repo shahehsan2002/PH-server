@@ -2,47 +2,33 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
-import { ZodError, ZodIssue } from 'zod';
+import { ErrorRequestHandler } from 'express';
+import { ZodError } from 'zod';
 import { TErrorSources } from '../interface/error';
 import config from '../config';
+import handleZodError from '../errors/handleZodError';
+import handleValidationError from '../errors/handleValidationError';
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
-// Default error response values
-  const statusCode = err.statusCode || 500;
-  const message = err.message || 'Something went wrong!';
-
- 
-  const errorSources: TErrorSources = [
+  //setting default values
+  let statusCode = 500;
+  let message = 'Something went wrong!';
+  let errorSources: TErrorSources = [
     {
       path: '',
-      message: 'Something went wrong!',
+      message: 'Something went wrong',
     },
   ];
-
-   // Function to handle ZodError
-  const handleZorError = (error: ZodError) => {
-    const errorSources: TErrorSources = err.issues.map((issue: ZodIssue) => ({
-      return: {
-        path: issue?.path[issue.path.length - 1],
-        message: issue.message,
-      },
-    }));
-    const statusCode = 400;
-
-    return {
-      statusCode,
-      message: 'Validation Error ',
-      errorSources,
-    };
-  };
-
+ 
   if (err instanceof ZodError) {
-    const simplifiedError = handleZorError(err);
+    const simplifiedError = handleZodError(err);
     statusCode = simplifiedError?.statusCode;
-
     message = simplifiedError?.message;
-
+    errorSources = simplifiedError?.errorSources;
+  } else if (err?.name === 'ValidationError') {
+    const simplifiedError = handleValidationError(err);
+    statusCode = simplifiedError?.statusCode;
+    message = simplifiedError?.message;
     errorSources = simplifiedError?.errorSources;
   }
 
@@ -51,6 +37,7 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     success: false,
     message,
     errorSources,
+    // err,
     stack: config.NODE_ENV === 'development' ? err.stack : null,
   });
 };
