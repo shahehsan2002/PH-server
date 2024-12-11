@@ -3,7 +3,7 @@ import sendResponse from '../../utils/sendResponse';
 import { StudentServices } from './student.service';
 import catchAsync from '../../utils/catchAsync';
 
-const getSingleStudent = catchAsync(async (req, res, ) => {
+const getSingleStudent = catchAsync(async (req, res) => {
   const { studentId } = req.params;
   const result = await StudentServices.getSingleStudentFromDB(studentId);
 
@@ -15,8 +15,8 @@ const getSingleStudent = catchAsync(async (req, res, ) => {
   });
 });
 
-const getAllStudents = catchAsync(async (req, res, ) => {
-  const result = await StudentServices.getAllStudentsFromDB();
+const getAllStudents = catchAsync(async (req, res) => {
+  const result = await StudentServices.getAllStudentsFromDB(req.query);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -26,24 +26,21 @@ const getAllStudents = catchAsync(async (req, res, ) => {
   });
 });
 
-const deleteStudent = catchAsync(async (req, res, ) => {
-  
-    const { studentId } = req.params;
-    const result = await StudentServices.deleteStudentFromDB(studentId);
+const deleteStudent = catchAsync(async (req, res) => {
+  const { studentId } = req.params;
+  const result = await StudentServices.deleteStudentFromDB(studentId);
 
-    sendResponse(res, {
-      statusCode: httpStatus.OK,
-      success: true,
-      message: 'Student is deleted successfully',
-      data: result,
-    });
-  
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Student is deleted successfully',
+    data: result,
+  });
 });
 
-const updateStudent = catchAsync(async (req, res, ) => {
-  
+const updateStudent = catchAsync(async (req, res) => {
   const { studentId } = req.params;
-  const {student} = req.body;
+  const { student } = req.body;
   const result = await StudentServices.updateStudentIntoDB(studentId, student);
 
   sendResponse(res, {
@@ -52,7 +49,6 @@ const updateStudent = catchAsync(async (req, res, ) => {
     message: 'Student is updated successfully',
     data: result,
   });
-
 });
 
 export const StudentControllers = {

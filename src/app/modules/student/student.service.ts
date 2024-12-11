@@ -5,8 +5,23 @@ import { User } from '../user/user.model';
 import { TStudent } from './student.interface';
 import { Student } from './student.model';
 
-const getAllStudentsFromDB = async () => {
-  const result = await Student.find()
+const getAllStudentsFromDB = async (query: Record<string, unknown>) => {
+  // {email:{regex: query.searchTerm, $options:i}}
+  // {presentAddress:{regex: query.searchTerm, $options:i}}
+  // {'name.firstName':{regex: query.searchTerm, $options:i}}
+
+  let searchTerm = '';
+
+  if (query?.searchTerm) {
+    searchTerm = query?.searchTerm as string;
+  }
+
+  const result = await Student.find({
+    $or: ['email', 'name.firstName', 'presentAddress'].map((field) => ({
+      [field]: { $regex: searchTerm, $options: 'i' },
+    })),
+  })
+
     .populate('admissionSemester')
     .populate({
       path: 'academicDepartment',
@@ -84,7 +99,7 @@ const deleteStudentFromDB = async (id: string) => {
     const deletedStudent = await Student.findOneAndUpdate(
       { id },
       { isDeleted: true },
-      { new: true, session },
+      { new: true, session }
     );
 
     if (!deletedStudent) {
@@ -94,7 +109,7 @@ const deleteStudentFromDB = async (id: string) => {
     const deletedUser = await User.findOneAndUpdate(
       { id },
       { isDeleted: true },
-      { new: true, session },
+      { new: true, session }
     );
 
     if (!deletedUser) {
