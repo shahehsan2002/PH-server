@@ -10,6 +10,7 @@ import handleZodError from '../errors/handleZodError';
 import handleValidationError from '../errors/handleValidationError';
 import handleCastError from '../errors/handleCastError';
 import handleDuplicateError from '../errors/handleDuplicateError';
+import AppError from '../errors/AppError';
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   //setting default values
@@ -42,6 +43,15 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
     errorSources = simplifiedError?.errorSources;
+  }else if (err instanceof AppError){
+    statusCode = err?.statusCode;
+    message = err?.message;
+    errorSources =[
+      {
+        path:'',
+        message:err?.message
+      }
+    ]
   }
 
   // Ultimate error return
