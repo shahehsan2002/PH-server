@@ -80,8 +80,8 @@ const updateStudentIntoDB = async (id: string, payload: Partial<TStudent>) => {
 
     guardian.fatherOccupation = Teacher
 
-    name.firstName = 'Mezba'
-    name.lastName = 'Abedin'
+    name.firstName = 'Shah'
+    name.lastName = 'Haque'
   */
 
   if (name && Object.keys(name).length) {
