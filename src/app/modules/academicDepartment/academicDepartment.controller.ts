@@ -1,4 +1,3 @@
-
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { AcademicDepartmentServices } from './academicDepartment.service';
@@ -44,25 +43,24 @@ const getSingleAcademicDepartment = catchAsync(async (req, res) => {
 });
 
 const updateAcademicDepartment = catchAsync(async (req, res) => {
-    const { departmentId } = req.params;
-    const result = await AcademicDepartmentServices.updateAcademicDepartmentIntoDB(
-        departmentId,
-      req.body,
+  const { departmentId } = req.params;
+  const result =
+    await AcademicDepartmentServices.updateAcademicDepartmentIntoDB(
+      departmentId,
+      req.body
     );
-  
-    sendResponse(res, {
-      statusCode: httpStatus.OK,
-      success: true,
-      message: 'Academic Department is updated successfully',
-      data: result 
-    });
-  });
-  
 
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Academic Department is updated successfully',
+    data: result,
+  });
+});
 
 export const AcademicDepartmentControllers = {
-    createAcademicDepartment,
-    getAllAcademicDepartments,
-    getSingleAcademicDepartment,
-    updateAcademicDepartment
-}
+  createAcademicDepartment,
+  getAllAcademicDepartments,
+  getSingleAcademicDepartment,
+  updateAcademicDepartment,
+};

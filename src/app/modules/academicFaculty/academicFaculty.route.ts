@@ -1,4 +1,4 @@
-import  express  from 'express';
+import express from 'express';
 import validateRequest from '../../middlewares/validateRequest';
 import { AcademicFacultyValidation } from './academicFaculty.validation';
 import { AcademicFacultyControllers } from './academicFaculty.controller';
@@ -15,20 +15,16 @@ router.post(
 
 router.get('/', AcademicFacultyControllers.getAllAcademicFaculties);
 
-router.get('/:facultyId', 
-    AcademicFacultyControllers.getSingleAcademicFaculty);
+router.get('/:facultyId', AcademicFacultyControllers.getSingleAcademicFaculty);
 
-    router.patch(
-      '/:facultyId',
-      validateRequest(
-        AcademicFacultyValidation.updateAcademicFacultyValidationSchema
-      ),
-      AcademicFacultyControllers.updateAcademicFaculty
-    );
+router.patch(
+  '/:facultyId',
+  validateRequest(
+    AcademicFacultyValidation.updateAcademicFacultyValidationSchema
+  ),
+  AcademicFacultyControllers.updateAcademicFaculty
+);
 
-    router.get(
-        '/', AcademicFacultyControllers.
-        getSingleAcademicFaculty);
-
+router.get('/', AcademicFacultyControllers.getSingleAcademicFaculty);
 
 export const AcademicFacultyRoutes = router;
