@@ -17,3 +17,6 @@ router.get('/:id', CourseControllers.getSingleCourse);
 
 // Get all course route
 router.get('/:id', CourseControllers.getAllCourses)
+
+// Delete course route
+router.delete('/:id', CourseControllers.deleteCourse)
