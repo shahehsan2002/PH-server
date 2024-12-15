@@ -11,3 +11,6 @@ router.post('/create-course',
     validateRequest(CourseValidations.createCourseValidationSchema),
     CourseControllers.createCourse,
 )
+
+// Get single course route
+router.get('/:id', CourseControllers.getSingleCourse);
