@@ -5,7 +5,12 @@ const createCourseIntoDB = async () => {
     return result;
 }
 
+const getAllCoursesFromDB = async () => {
+    const result = await Course.find();
+    return result;
+}
 
 export const CourseServices = {
-    createCourseIntoDB
+    createCourseIntoDB,
+    getAllCoursesFromDB
 }
