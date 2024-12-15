@@ -14,3 +14,6 @@ router.post('/create-course',
 
 // Get single course route
 router.get('/:id', CourseControllers.getSingleCourse);
+
+// Get all course route
+router.get('/:id', CourseControllers.getAllCourses)
