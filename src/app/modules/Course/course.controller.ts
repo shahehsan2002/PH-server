@@ -22,3 +22,14 @@ const getAllCourses = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
+const getSingleCourse = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await CourseServices.getSingleCourseFromDB(id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Course is retrieved successfully',
+    data: result,
+  });
+});
