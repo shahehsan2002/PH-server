@@ -20,3 +20,5 @@ router.get('/:id', CourseControllers.getAllCourses)
 
 // Delete course route
 router.delete('/:id', CourseControllers.deleteCourse)
+
+export const CourseRoutes = router;
