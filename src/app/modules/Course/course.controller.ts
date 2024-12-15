@@ -4,7 +4,6 @@ import sendResponse from '../../utils/sendResponse';
 import { CourseServices } from './course.service';
 
 // Create course
-
 const createCourse = catchAsync(async (req, res) => {
   const result = await CourseServices.createCourseIntoDB(req.body);
   sendResponse(res, {
@@ -16,7 +15,6 @@ const createCourse = catchAsync(async (req, res) => {
 });
 
 // Get all courses
-
 const getAllCourses = catchAsync(async (req, res) => {
   const result = await CourseServices.getAllCoursesFromDB();
   sendResponse(res, {
@@ -26,9 +24,7 @@ const getAllCourses = catchAsync(async (req, res) => {
     data: result,
   });
 });
-
 // Get single course
-
 const getSingleCourse = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await CourseServices.getSingleCourseFromDB(id);
@@ -39,9 +35,7 @@ const getSingleCourse = catchAsync(async (req, res) => {
     data: result,
   });
 });
-
 // Delete course
-
 const deleteCourse = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await CourseServices.deleteCourseFromDB(id);
