@@ -10,7 +10,13 @@ const getAllCoursesFromDB = async () => {
     return result;
 }
 
+const getSingleCourseFromDB = async (id:string) => {
+    const result = await Course.findById(id);
+    return result;
+}
+
 export const CourseServices = {
     createCourseIntoDB,
-    getAllCoursesFromDB
+    getAllCoursesFromDB,
+    getSingleCourseFromDB,
 }
