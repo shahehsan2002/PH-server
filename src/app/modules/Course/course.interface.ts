@@ -5,7 +5,7 @@ export type TPreRequisiteCourses = {
   isDeleted?: boolean;
 };
 
-export type TPreRequisite = {
+export type TCourse = {
   title: string;
   prefix: string;
   code: number;
