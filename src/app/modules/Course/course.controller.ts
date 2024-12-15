@@ -3,6 +3,8 @@ import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { CourseServices } from './course.service';
 
+// Create course
+
 const createCourse = catchAsync(async (req, res) => {
   const result = await CourseServices.createCourseIntoDB(req.body);
   sendResponse(res, {
@@ -12,6 +14,8 @@ const createCourse = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
+// Get all courses
 
 const getAllCourses = catchAsync(async (req, res) => {
   const result = await CourseServices.getAllCoursesFromDB();
@@ -23,6 +27,8 @@ const getAllCourses = catchAsync(async (req, res) => {
   });
 });
 
+// Get single course
+
 const getSingleCourse = catchAsync(async (req, res) => {
   const { id } = req.params;
   const result = await CourseServices.getSingleCourseFromDB(id);
@@ -33,3 +39,23 @@ const getSingleCourse = catchAsync(async (req, res) => {
     data: result,
   });
 });
+
+// Delete course
+
+const deleteCourse = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const result = await CourseServices.deleteCourseFromDB(id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Course is deleted successfully',
+    data: result,
+  });
+});
+
+export const CourseControllers = {
+  createCourse,
+  getAllCourses,
+  getSingleCourse,
+  deleteCourse,
+};
