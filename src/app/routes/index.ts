@@ -39,6 +39,7 @@ const moduleRoutes = [
     path: '/academic-departments',
     route: AcademicDepartmentRoutes,
   },
+  // Courses Route
   {
     path: '/courses',
     route: CourseRoutes,
