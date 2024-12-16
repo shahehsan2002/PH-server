@@ -16,7 +16,7 @@ router.post('/create-course',
 router.get('/:id', CourseControllers.getSingleCourse);
 
 // Get all course route
-router.get('/:id', CourseControllers.getAllCourses)
+router.get('/', CourseControllers.getAllCourses)
 
 // Delete course route
 router.delete('/:id', CourseControllers.deleteCourse)
