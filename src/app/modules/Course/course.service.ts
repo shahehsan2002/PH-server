@@ -9,7 +9,10 @@ const createCourseIntoDB = async (payload: TCourse) => {
 };
 
 const getAllCoursesFromDB = async (query: Record<string, unknown>) => {
-    const courseQuery = new QueryBuilder(Course.find().populate('preRequisiteCourses.course'),query)
+  const courseQuery = new QueryBuilder(
+    Course.find().populate('preRequisiteCourses.course'),
+    query
+  )
     .search(CourseSearchableFields)
     .filter()
     .sort()
@@ -20,11 +23,27 @@ const getAllCoursesFromDB = async (query: Record<string, unknown>) => {
 };
 
 const getSingleCourseFromDB = async (id: string) => {
-    
-  const result = await Course.findById(id).populate('preRequisiteCourses.course');
+  const result = await Course.findById(id).populate(
+    'preRequisiteCourses.course'
+  );
   return result;
 };
 
+const updateCourseIntoDB = async (id: string, payload: Partial<TCourse>) => {
+  const { preRequisiteCourses, ...courseRemainingData } = payload;
+
+  // Step 1: Update Basic course info
+
+  const updatedBasicCourseInfo = await Course.findByIdAndUpdate(
+    id,
+    courseRemainingData,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+  return updatedBasicCourseInfo;
+};
 const deleteCourseFromDB = async (id: string) => {
   const result = await Course.findByIdAndUpdate(
     id,
@@ -37,5 +56,6 @@ export const CourseServices = {
   createCourseIntoDB,
   getAllCoursesFromDB,
   getSingleCourseFromDB,
+  updateCourseIntoDB,
   deleteCourseFromDB,
 };
