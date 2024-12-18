@@ -30,7 +30,7 @@ const getSingleCourseFromDB = async (id: string) => {
 };
 
 const updateCourseIntoDB = async (id: string, payload: Partial<TCourse>) => {
-  const { preRequisiteCourses, ...courseRemainingData } = payload;
+//   const { preRequisiteCourses, ...courseRemainingData } = payload;
 
   // Step 1: Update Basic course info
 
