@@ -30,7 +30,7 @@ const getSingleCourseFromDB = async (id: string) => {
 };
 
 const updateCourseIntoDB = async (id: string, payload: Partial<TCourse>) => {
-//   const { preRequisiteCourses, ...courseRemainingData } = payload;
+  const { preRequisiteCourses, ...courseRemainingData } = payload;
 
   // Step 1: Update Basic course info
 
@@ -42,6 +42,19 @@ const updateCourseIntoDB = async (id: string, payload: Partial<TCourse>) => {
       runValidators: true,
     }
   );
+
+
+
+// check if there is any pre-requisite course to update
+if(preRequisiteCourses && preRequisiteCourses.length > 0) {
+  // filter out the deleted pre-requisite courses
+  const deletePreRequisiteCourses = preRequisiteCourses.filter(el => el.course && el.isDeleted)
+  console.log(deletePreRequisiteCourses)
+}
+
+
+
+
   return updatedBasicCourseInfo;
 };
 const deleteCourseFromDB = async (id: string) => {
