@@ -124,10 +124,14 @@ const deleteCourseFromDB = async (id: string) => {
   );
   return result;
 };
+
+const assignFacultiesIntoDB =
+
 export const CourseServices = {
   createCourseIntoDB,
   getAllCoursesFromDB,
   getSingleCourseFromDB,
   updateCourseIntoDB,
   deleteCourseFromDB,
+  assignFacultiesIntoDB,
 };
