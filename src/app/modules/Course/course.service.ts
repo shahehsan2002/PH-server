@@ -2,7 +2,7 @@ import httpStatus from 'http-status';
 import QueryBuilder from '../../builder/QueryBuilder';
 import AppError from '../../errors/AppError';
 import { CourseSearchableFields } from './course.constant';
-import { TCourse } from './course.interface';
+import { TCourse, TCourseFaculty } from './course.interface';
 import { Course } from './course.model';
 import mongoose from 'mongoose';
 
@@ -125,7 +125,21 @@ const deleteCourseFromDB = async (id: string) => {
   return result;
 };
 
-const assignFacultiesIntoDB =
+const assignFacultiesWithCourseIntoDB = async (
+  id:string, 
+  payload:Partial<TCourseFaculty>
+)=>{
+ const result = await Course.findByIdAndUpdate(id,{
+
+  $addToSet:{faculties :{
+    $each:payload
+  }},
+ },{
+  upsert:true,
+  new:true,
+ })
+ return result;
+};
 
 export const CourseServices = {
   createCourseIntoDB,
@@ -133,5 +147,5 @@ export const CourseServices = {
   getSingleCourseFromDB,
   updateCourseIntoDB,
   deleteCourseFromDB,
-  assignFacultiesIntoDB,
+  assignFacultiesWithCourseIntoDB,
 };
