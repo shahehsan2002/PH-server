@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from 'http-status';
 // import mongoose from 'mongoose';
-// import QueryBuilder from '../../builder/QueryBuilder';
+import QueryBuilder from '../../builder/QueryBuilder';
 import AppError from '../../errors/AppError';
 // import { OfferedCourse } from '../OfferedCourse/OfferedCourse.model';
 import { AcademicSemester } from '../academicSemester/academicSemester.model';
@@ -63,21 +63,21 @@ const createSemesterRegistrationIntoDB = async (
   return result;
 };
 
-// const getAllSemesterRegistrationsFromDB = async (
-//   query: Record<string, unknown>,
-// ) => {
-//   const semesterRegistrationQuery = new QueryBuilder(
-//     SemesterRegistration.find().populate('academicSemester'),
-//     query,
-//   )
-//     .filter()
-//     .sort()
-//     .paginate()
-//     .fields();
+const getAllSemesterRegistrationsFromDB = async (
+  query: Record<string, unknown>,
+) => {
+  const semesterRegistrationQuery = new QueryBuilder(
+    SemesterRegistration.find().populate('academicSemester'),
+    query,
+  )
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
 
-//   const result = await semesterRegistrationQuery.modelQuery;
-//   return result;
-// };
+  const result = await semesterRegistrationQuery.modelQuery;
+  return result;
+};
 
 // const getSingleSemesterRegistrationsFromDB = async (id: string) => {
 //   const result = await SemesterRegistration.findById(id);
@@ -225,7 +225,7 @@ const createSemesterRegistrationIntoDB = async (
 
 export const SemesterRegistrationService = {
   createSemesterRegistrationIntoDB,
-  // getAllSemesterRegistrationsFromDB,
+  getAllSemesterRegistrationsFromDB,
   // getSingleSemesterRegistrationsFromDB,
   // updateSemesterRegistrationIntoDB,
   // deleteSemesterRegistrationFromDB,
