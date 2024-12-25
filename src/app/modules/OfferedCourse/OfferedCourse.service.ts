@@ -27,7 +27,6 @@ const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
 
   const academicSemester = isSemesterRegistrationExist.academicSemester;
 
-
   // Check if the academic faculty ID exists
   const isAcademicFacultyExist = await AcademicFaculty.findById(
     academicFaculty
@@ -57,9 +56,22 @@ const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
     throw new AppError(httpStatus.NOT_FOUND, 'Faculty not found !');
   }
 
+  //   check if the department is under the faculty
+  const isDepartmentBelongToFaculty = await AcademicDepartment.findOne({
+    academicFaculty,
+    academicDepartment,
+  });
+
+  if (!isDepartmentBelongToFaculty) {
+    throw new AppError(
+      httpStatus.NOT_FOUND,
+      `This ${isAcademicDepartmentExist.name} department is not under the ${isAcademicFacultyExist.name} faculty`
+    );
+  }
+
   // Create the offered course
 
-  const result = await OfferedCourse.create({...payload,academicSemester});
+  const result = await OfferedCourse.create({ ...payload, academicSemester });
   return result;
 };
 
