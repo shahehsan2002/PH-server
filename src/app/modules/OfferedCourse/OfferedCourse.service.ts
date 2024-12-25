@@ -16,6 +16,9 @@ const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
     course,
     section,
     faculty,
+    days,
+    startTime,
+    endTime,
   } = payload;
 
   // Check if the semester registration ID exists
@@ -87,10 +90,36 @@ const createOfferedCourseIntoDB = async (payload: TOfferedCourse) => {
     );
   }
 
+  //   Get the schedule of the faculties
+  const assignedSchedules = await OfferedCourse.find({
+    semesterRegistration,
+    faculty,
+    days: { $in: days },
+  }).select('days startTime endTime');
+
+  const newSchedule = { days, startTime, endTime };
+
+  assignedSchedules.forEach((schedule) => {
+    const existingStartTime = new Date(`1970-01-01T${schedule.startTime}:00`);
+    const existingEndTime = new Date(`1970-01-01T${schedule.endTime}:00`);
+
+    const newStartTime = new Date(`1970-01-01T${newSchedule.startTime}:00`);
+    const newEndTime = new Date(`1970-01-01T${newSchedule.endTime}:00`);
+
+    if (newStartTime < existingEndTime && newEndTime > existingStartTime) {
+      throw new AppError(
+        httpStatus.BAD_REQUEST,
+        `Faculty is not available at this time.`
+      );
+    }
+  });
+
   // Create the offered course
 
-  const result = await OfferedCourse.create({ ...payload, academicSemester });
-  return result;
+  //   const result = await OfferedCourse.create({ ...payload, academicSemester });
+  //   return result;
+  // };
+  return null;
 };
 
 export const OfferedCourseService = {
