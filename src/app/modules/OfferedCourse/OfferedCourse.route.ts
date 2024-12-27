@@ -12,18 +12,15 @@ router.get('/:id', OfferedCourseController.getSingleOfferedCourses);
 router.post(
   '/create-offered-course',
   validateRequest(OfferedCourseValidations.createOfferedCourseValidationSchema),
-  OfferedCourseController.createOfferedCourse,
+  OfferedCourseController.createOfferedCourse
 );
 
-// router.patch(
-//   '/:id',
-//   validateRequest(OfferedCourseValidations.updateOfferedCourseValidationSchema),
-//   OfferedCourseControllers.updateOfferedCourse,
-// );
+router.patch(
+  '/:id',
+  validateRequest(OfferedCourseValidations.updateOfferedCourseValidationSchema),
+  OfferedCourseController.updateOfferedCourse
+);
 
-// router.delete(
-//   '/:id',
-//   OfferedCourseControllers.deleteOfferedCourseFromDB,
-// );
+router.delete('/:id', OfferedCourseController.deleteOfferedCourse);
 
 export const offeredCourseRoutes = router;
