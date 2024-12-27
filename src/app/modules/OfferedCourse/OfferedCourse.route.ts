@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', OfferedCourseController.getAllOfferedCourses);
 
-// router.get('/:id', OfferedCourseControllers.getSingleOfferedCourses);
+router.get('/:id', OfferedCourseController.getSingleOfferedCourses);
 
 router.post(
   '/create-offered-course',
