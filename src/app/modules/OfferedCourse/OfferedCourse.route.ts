@@ -5,7 +5,7 @@ import { OfferedCourseController } from './OfferedCourse.controller';
 
 const router = express.Router();
 
-// router.get('/', OfferedCourseController.getAllOfferedCourses);
+router.get('/', OfferedCourseController.getAllOfferedCourses);
 
 // router.get('/:id', OfferedCourseControllers.getSingleOfferedCourses);
 
