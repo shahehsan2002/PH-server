@@ -45,11 +45,11 @@ const getSingleOfferedCourses = catchAsync(
   }
 );
 
-Update offered Course
+// Update offered Course
 const updateOfferedCourse = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
 
-  const result = await OfferedCourseService.updateOfferedCourseFromDB(
+  const result = await OfferedCourseService.updateOfferedCourseIntoDB(
     id,
     req.body
   );
@@ -65,7 +65,7 @@ const updateOfferedCourse = catchAsync(async (req: Request, res: Response) => {
 // Delete offered Course
 const deleteOfferedCourse = catchAsync(async (req: Request, res: Response) => {
   const { id } = req.params;
-  const result = await OfferedCourseServices.de(id);
+  const result = await OfferedCourseService.deleteOfferedCourseFromDB(id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
