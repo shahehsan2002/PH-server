@@ -1,5 +1,6 @@
 // year semesterCode 4digit number
-import { TAcademicSemester } from '../academicSemester/academicSemester.interface';
+// import { TAcademicSemester } from '../academicSemester/academicSemester.interface';
+import { TAcademicSemester } from '../academicSemester/academicSemester.Interface';
 import { User } from './user.model';
 
 const findLastStudentId = async () => {
