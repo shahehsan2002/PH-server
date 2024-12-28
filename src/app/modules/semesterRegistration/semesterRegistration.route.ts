@@ -8,20 +8,20 @@ const router = express.Router();
 router.post(
   '/create-semester-registration',
   validateRequest(
-    SemesterRegistrationValidations.createSemesterRegistrationValidationSchema
+    SemesterRegistrationValidations.createSemesterRegistrationValidationSchema,
   ),
-  SemesterRegistrationController.createSemesterRegistration
+  SemesterRegistrationController.createSemesterRegistration,
 );
 
-// router.get(
-//   '/:id',
-//   SemesterRegistrationController.getSingleSemesterRegistration,
-// );
+router.get(
+  '/:id',
+  SemesterRegistrationController.getSingleSemesterRegistration,
+);
 
 router.patch(
   '/:id',
   validateRequest(
-    SemesterRegistrationValidations.updateSemesterRegistrationValidationSchema,
+    SemesterRegistrationValidations.upadateSemesterRegistrationValidationSchema,
   ),
   SemesterRegistrationController.updateSemesterRegistration,
 );
@@ -31,10 +31,10 @@ router.get(
   SemesterRegistrationController.getSingleSemesterRegistration,
 );
 
-// router.delete(
-//   '/:id',
-//   SemesterRegistrationController.deleteSemesterRegistration,
-// );
+router.delete(
+  '/:id',
+  SemesterRegistrationController.deleteSemesterRegistration,
+);
 
 router.get('/', SemesterRegistrationController.getAllSemesterRegistrations);
 

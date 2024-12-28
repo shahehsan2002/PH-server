@@ -3,7 +3,7 @@ import {
   TAcademicSemesterName,
   TAcademicSemesterNameCodeMapper,
   TMonths,
-} from './academicSemester.Interface';
+} from './academicSemester.interface';
 
 export const Months: TMonths[] = [
   'January',

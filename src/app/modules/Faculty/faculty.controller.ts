@@ -2,7 +2,6 @@ import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { FacultyServices } from './faculty.service';
-// import { FacultyServices } from './faculty.service';
 
 const getSingleFaculty = catchAsync(async (req, res) => {
   const { id } = req.params;
@@ -42,7 +41,7 @@ const updateFaculty = catchAsync(async (req, res) => {
 
 const deleteFaculty = catchAsync(async (req, res) => {
   const {  id } = req.params;
-  const result = await FacultyServices.deleteFacultyFromDB(id);
+  const result = await FacultyServices.deleteStudentFromDB(id);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

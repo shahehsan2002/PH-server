@@ -1,43 +1,38 @@
 import express from 'express';
-import { CourseValidations } from './course.validation';
-import { CourseControllers } from './course.controller';
 import validateRequest from '../../middlewares/validateRequest';
+import { CourseControllers } from './course.controller';
+import { CourseValidations } from './course.validation';
 
 const router = express.Router();
 
-// Create course route
 router.post(
   '/create-course',
   validateRequest(CourseValidations.createCourseValidationSchema),
-  CourseControllers.createCourse
+  CourseControllers.createCourse,
 );
 
-// Get single course route
 router.get('/:id', CourseControllers.getSingleCourse);
 
-// Get all course route
-router.get('/', CourseControllers.getAllCourses);
-
-// Update course route
 router.patch(
   '/:id',
   validateRequest(CourseValidations.updateCourseValidationSchema),
-  CourseControllers.updateCourse
+  CourseControllers.updateCourse,
 );
 
-// Delete course route
 router.delete('/:id', CourseControllers.deleteCourse);
 
 router.put(
   '/:courseId/assign-faculties',
   validateRequest(CourseValidations.facultiesWithCourseValidationSchema),
-  CourseControllers.assignFacultiesWithCourse
+  CourseControllers.assignFacultiesWithCourse,
 );
 
 router.delete(
   '/:courseId/remove-faculties',
   validateRequest(CourseValidations.facultiesWithCourseValidationSchema),
-  CourseControllers.removeFacultiesFromCourse
+  CourseControllers.removeFacultiesFromCourse,
 );
+
+router.get('/', CourseControllers.getAllCourses);
 
 export const CourseRoutes = router;
