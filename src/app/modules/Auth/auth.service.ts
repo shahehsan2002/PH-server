@@ -10,7 +10,12 @@ const loginUser = async (payload: TLoginUser) => {
     throw new AppError(httpStatus.NOT_FOUND, 'User not found');
   }
 
-  
+  //   checking if the user is already deleted
+
+  const isDeleted = isUserExists?.isDeleted;
+  if (isDeleted) {
+    throw new AppError(httpStatus.FORBIDDEN, 'User is deleted');
+  }
 
   return {};
 };
