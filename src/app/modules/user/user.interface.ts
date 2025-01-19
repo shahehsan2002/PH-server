@@ -12,3 +12,5 @@ export interface TUser {
 export interface UserModel extends Model<TUser> {
   myStaticMethod(): number
 }
+
+ 
