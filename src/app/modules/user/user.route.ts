@@ -22,7 +22,7 @@ router.post(
 router.post(
   '/create-admin',
   validateRequest(createAdminValidationSchema),
-  UserControllers.createAdmin,
+  UserControllers.createAdmin
 );
 
 export const UserRoutes = router;
