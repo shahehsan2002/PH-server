@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Model } from 'mongoose';
 
 export interface TUser {
@@ -10,7 +11,8 @@ export interface TUser {
 }
 
 export interface UserModel extends Model<TUser> {
-  myStaticMethod(): number
+  // myStaticMethod(): number
+  isUserExistsByCustomId(id:string):Promise<TUser>
 }
 
  
