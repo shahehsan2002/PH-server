@@ -29,7 +29,7 @@ const loginUser = async (payload: TLoginUser) => {
     payload?.password,
     isUserExists?.password
   );
-  console.log(isPasswordMatched);
+  console.log(isPasswordMatched)
   return {};
 };
 
