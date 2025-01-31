@@ -7,7 +7,7 @@ export interface TUser {
   needsPasswordChange: boolean;
   role: 'admin' | 'student' | 'faculty';
   status: 'in-progress' | 'blocked';
-  isDeleted: boolean;
+  isDeleted: boolean
 }
 
 export interface UserModel extends Model<TUser> {
