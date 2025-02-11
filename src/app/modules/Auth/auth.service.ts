@@ -27,12 +27,12 @@ const loginUser = async (payload: TLoginUser) => {
   //   checking if the password is correct
   const isPasswordMatched = await bcrypt.compare(
     payload?.password,
-    isUserExists?.password
+    isUserExists?.password,
   );
   console.log(isPasswordMatched)
   return {};
 };
 
 export const AuthServices = {
-  loginUser
+  loginUser,
 };
