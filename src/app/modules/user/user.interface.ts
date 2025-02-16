@@ -7,12 +7,14 @@ export interface TUser {
   needsPasswordChange: boolean;
   role: 'admin' | 'student' | 'faculty';
   status: 'in-progress' | 'blocked';
-  isDeleted: boolean
+  isDeleted: boolean;
 }
 
 export interface UserModel extends Model<TUser> {
   // myStaticMethod(): number
-  isUserExistsByCustomId(id:string):Promise<TUser>
+  isUserExistsByCustomId(id: string): Promise<TUser>;
+  isPasswordMatched(
+    plainTextPassword: string,
+    hashedPassword: string
+  ): Promise<boolean>;
 }
-
- 
