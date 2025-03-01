@@ -25,7 +25,7 @@ const createFaculty = catchAsync(async (req, res) => {
     statusCode: httpStatus.OK,
     success: true,
     message: 'Faculty is created successfully',
-    data: result,
+    data: result
   });
 });
 
